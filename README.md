@@ -31,6 +31,6 @@ The seed script will also create a demo user for demonstration purposes only:
 
 ## Important!
 
-The seed script only creates translations in English and Spanish, so you will not see the website translated to other languages even if you see them in the dropdown menu.
+The seed script only creates translations in English and Turkish, so you will not see the website translated to other languages even if you see them in the dropdown menu.
 
 You can translate documents to other languages from the admin panel.
