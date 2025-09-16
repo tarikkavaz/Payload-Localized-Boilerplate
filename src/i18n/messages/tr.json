@@ -1,0 +1,20 @@
+{
+  "date-published": "Yayınlanma Tarihi",
+  "author": "Yazar",
+  "page-not-found": "Bu sayfa bulunamadı.",
+  "go-home": "Ana Sayfaya Dön",
+  "loading": "Yükleniyor, lütfen bekleyin...",
+  "posts": "Yazılar",
+  "post": "Yazı",
+  "showing": "Gösteriliyor",
+  "of": "-",
+  "search": "Arama",
+  "dashboard": "Kontrol Paneli",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "more-pages": "Daha Fazla Sayfa",
+  "theme": "Tema",
+  "auto": "Otomatik",
+  "light": "Açık",
+  "dark": "Koyu"
+}

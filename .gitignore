@@ -1,0 +1,22 @@
+build
+dist / media
+node_modules
+.DS_Store
+.env
+.next
+.vercel
+.cursor
+.pnpm-store
+
+# Payload default media upload directory
+public/media/
+public/documents/
+dataDump/
+.vscode/settings.json
+
+website.db
+public/media/*
+tsconfig.tsbuildinfo
+
+# Database Backups
+db_backups/
