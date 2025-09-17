@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { anyone } from '../../access/anyone'
+import { authenticated } from '../../access/authenticated'
 import { slugField } from '@/fields/slug'
 
 const Categories: CollectionConfig = {
@@ -12,8 +12,13 @@ const Categories: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  labels: {
+    singular: 'Post Category',
+    plural: 'Post Categories',
+  },
   admin: {
     useAsTitle: 'title',
+    group: 'Posts',
   },
   fields: [
     {

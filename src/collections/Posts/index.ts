@@ -36,6 +36,7 @@ export const Posts: CollectionConfig = {
     update: authenticated,
   },
   admin: {
+    group: 'Posts',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data, locale }) => {

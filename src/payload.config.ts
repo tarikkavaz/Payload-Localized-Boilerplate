@@ -20,7 +20,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
-import Categories from './collections/Categories'
+import Categories from './collections/Posts/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -146,6 +146,9 @@ export default buildConfig({
     redirectsPlugin({
       collections: ['pages', 'posts'],
       overrides: {
+        admin: {
+          group: 'System',
+        },
         // @ts-expect-error
         fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
@@ -177,6 +180,9 @@ export default buildConfig({
         payment: false,
       },
       formOverrides: {
+        admin: {
+          group: 'Forms',
+        },
         fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
             if ('name' in field && field.name === 'confirmationMessage') {
@@ -197,11 +203,19 @@ export default buildConfig({
           })
         },
       },
+      formSubmissionOverrides: {
+        admin: {
+          group: 'Forms',
+        },
+      },
     }),
     searchPlugin({
       collections: ['posts'],
       beforeSync: beforeSyncWithSearch,
       searchOverrides: {
+        admin: {
+          group: 'System',
+        },
         fields: ({ defaultFields }) => {
           return [...defaultFields, ...searchFields]
         },
