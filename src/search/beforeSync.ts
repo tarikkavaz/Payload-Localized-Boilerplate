@@ -5,16 +5,41 @@ export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searc
     doc: { relationTo: collection },
   } = searchDoc
 
-  const { slug, id, categories, title, meta } = originalDoc
+  const { id, categories } = originalDoc
+  const locale = req.locale || 'en'
+
+  // Note: Search sync happens per locale when documents are updated
+  // The locale is correctly passed from the request context
+
+  // Helper function to extract localized value
+  const getLocalizedValue = (field: any, fallback: any = undefined) => {
+    if (typeof field === 'object' && field !== null && !Array.isArray(field) && field[locale]) {
+      return field[locale]
+    }
+    return field || fallback
+  }
+
+  // Extract localized fields properly
+  const title = getLocalizedValue(originalDoc.title)
+  const slug = getLocalizedValue(originalDoc.slug)
+  
+  // Handle meta fields - now that SEO fields are localized
+  const meta = originalDoc.meta || {}
+  const metaTitle = getLocalizedValue(meta.title, title)
+  const metaDescription = getLocalizedValue(meta.description)
+  
+  // Handle image properly - it should be the full media object
+  let metaImage = meta.image
+  // Image field is not localized, so use it directly
 
   const modifiedDoc: DocToSync = {
     ...searchDoc,
+    title,
     slug,
     meta: {
-      ...meta,
-      title: meta?.title || title,
-      image: meta?.image?.id || meta?.image,
-      description: meta?.description,
+      title: metaTitle,
+      description: metaDescription,
+      image: metaImage,
     },
     categories: [],
   }
@@ -37,6 +62,7 @@ export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searc
         disableErrors: true,
         depth: 0,
         select: { title: true },
+        locale,
         req,
       })
 

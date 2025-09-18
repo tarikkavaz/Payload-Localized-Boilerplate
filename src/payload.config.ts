@@ -217,7 +217,17 @@ export default buildConfig({
           group: 'System',
         },
         fields: ({ defaultFields }) => {
-          return [...defaultFields, ...searchFields]
+          // Make the default title field localized
+          const modifiedDefaultFields = defaultFields.map((field) => {
+            if ('name' in field && field.name === 'title') {
+              return {
+                ...field,
+                localized: true,
+              }
+            }
+            return field
+          })
+          return [...modifiedDefaultFields, ...searchFields]
         },
       },
     }),

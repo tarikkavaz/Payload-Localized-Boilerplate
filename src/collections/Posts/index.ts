@@ -135,12 +135,15 @@ export const Posts: CollectionConfig = {
             }),
             MetaTitleField({
               hasGenerateFn: true,
+              localized: true,
             }),
             MetaImageField({
               relationTo: 'media',
             }),
 
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              localized: true,
+            }),
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,

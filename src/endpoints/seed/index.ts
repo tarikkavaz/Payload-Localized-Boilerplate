@@ -23,7 +23,7 @@ const collections: CollectionSlug[] = [
   'posts',
   'forms',
   'form-submissions',
-  // 'search', TO-DO: enable again!
+  'search',
 ]
 const globals: GlobalSlug[] = ['header', 'footer']
 
