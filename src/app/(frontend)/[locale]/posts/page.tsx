@@ -42,7 +42,7 @@ export default async function Page({ params }: Args) {
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
+          kind="post"
           currentPage={posts.page}
           limit={12}
           totalDocs={posts.totalDocs}
