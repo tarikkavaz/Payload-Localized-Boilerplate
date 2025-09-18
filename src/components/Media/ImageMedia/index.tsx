@@ -45,7 +45,15 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     height = fullHeight!
     alt = altFromResource
 
-    src = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`
+    // Use direct media path for better performance and to avoid API timeouts
+    // For local development, use direct path to public/media files
+    if (url && url.startsWith('/api/media/file/')) {
+      // Extract filename from API URL and use direct path
+      const filename = url.split('/').pop()
+      src = `/media/${filename}`
+    } else {
+      src = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`
+    }
   }
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes

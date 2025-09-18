@@ -10,6 +10,10 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://loc
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    qualities: [75, 90, 100],
+    // Increase timeout for image optimization
+    minimumCacheTTL: 60,
+    // Configure image loader to handle both API and direct media URLs
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
