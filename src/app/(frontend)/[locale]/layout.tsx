@@ -53,12 +53,14 @@ export default async function RootLayout({ children, params }: Args) {
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <Providers>
           <NextIntlClientProvider messages={messages}>
             <LivePreviewListener />
             <Header locale={locale} />
-            {children}
+            <main className="flex-1">
+              {children}
+            </main>
             <FooterWrapper locale={locale} />
           </NextIntlClientProvider>
         </Providers>
