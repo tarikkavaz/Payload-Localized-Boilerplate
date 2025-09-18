@@ -1,34 +1,37 @@
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 
 export const PageRange: React.FC<{
   className?: string
-  collection?: string
-  collectionLabels?: {
-    plural?: string
-    singular?: string
-  }
   currentPage?: number
   limit?: number
   totalDocs?: number
+  // pass "post" to say posts; anything else -> generic "result/sonuç"
+  kind?: 'post' | 'result'
 }> = (props) => {
-  const { className, currentPage, limit, totalDocs } = props
+  const { className, currentPage = 1, limit = 1, totalDocs = 0, kind = 'result' } = props
   const t = useTranslations()
+  const locale = useLocale()
+  const nf = new Intl.NumberFormat(locale)
 
-  let indexStart = (currentPage ? currentPage - 1 : 1) * (limit || 1) + 1
+  let indexStart = (currentPage - 1) * limit + 1
   if (totalDocs && indexStart > totalDocs) indexStart = 0
 
-  let indexEnd = (currentPage || 1) * (limit || 1)
+  let indexEnd = currentPage * limit
   if (totalDocs && indexEnd > totalDocs) indexEnd = totalDocs
+
+  if (!totalDocs || indexStart === 0) {
+    return <div className={[className, 'font-semibold'].filter(Boolean).join(' ')}>{t('no-results')}</div>
+  }
 
   return (
     <div className={[className, 'font-semibold'].filter(Boolean).join(' ')}>
-      {(typeof totalDocs === 'undefined' || totalDocs === 0) && 'Search produced no results.'}
-      {typeof totalDocs !== 'undefined' &&
-        totalDocs > 0 &&
-        `${t('showing')} ${indexStart}${indexStart > 0 ? ` - ${indexEnd}` : ''} ${t('of')} ${totalDocs} ${
-          totalDocs > 1 ? t('posts').toLowerCase() : t('post').toLowerCase()
-        }`}
+      {t('range', {
+        start: nf.format(indexStart),
+        end: nf.format(indexEnd),
+        total: nf.format(totalDocs),
+        kind
+      })}
     </div>
   )
 }

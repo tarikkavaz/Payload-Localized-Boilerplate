@@ -8,6 +8,8 @@
   "post": "Post",
   "showing": "Showing",
   "of": "of",
+  "range": "Showing {start}–{end} of {total} {kind, select, post {{total, plural, one {post} other {posts}}} other {{total, plural, one {result} other {results}}}}",
+  "no-results": "No results found.",
   "search": "Search",
   "dashboard": "Dashboard",
   "previous": "Previous",
