@@ -20,7 +20,7 @@ export const RelatedPostsList: React.FC<RelatedPostsListProps> = (props) => {
   const locale = useLocale()
 
   return (
-    <div className={clsx('container lg:mx-0 lg:grid', className)}>
+    <div className={clsx('container max-w-4xl lg:mx-0 lg:grid', className)}>
       {introContent && <RichText content={introContent} enableGutter={false} />}
       <hr className="my-8" />
       <div className="prose dark:prose-invert mb-8"><h3>{t('related-posts')}</h3></div>

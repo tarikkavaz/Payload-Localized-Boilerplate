@@ -9,7 +9,7 @@
   "related-posts": "İlgili Yazılar",
   "showing": "Gösteriliyor",
   "of": "of",
-  "range": "{start}–{end} / {total} {kind, select, post {yazı} other {Kayıt gösteriliyor}}",
+  "range": "{total} {kind, select, post {{total, plural, one {Yazıdan} other {Yazıdan}}} other {{total, plural, one {Kayıttan} other {Kayıttan}}}} {start}–{end} arası gösteriliyor",
   "no-results": "Kayıt bulunamadı.",
   "search": "Arama",
   "dashboard": "Kontrol Paneli",

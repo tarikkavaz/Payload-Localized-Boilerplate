@@ -56,8 +56,8 @@ export default buildConfig({
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
-      afterDashboard: ['@/components/AfterDashboard'],
+      // beforeLogin: ['@/components/BeforeLogin'],
+      // afterDashboard: ['@/components/AfterDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -88,28 +88,13 @@ export default buildConfig({
   },
   // Enable folders functionality
   folders: {
-    /**
-     * Ability to view hidden fields and collections related to folders
-     *
-     * @default false
-     */
+    /** Ability to view hidden fields and collections related to folders @default false **/
     debug: false,
-    /**
-     * The Folder field name
-     *
-     * @default "folder"
-     */
+    /** The Folder field name @default "folder" **/
     fieldName: 'folder',
-    /**
-     * Slug for the folder collection
-     *
-     * @default "payload-folders"
-     */
+    /** Slug for the folder collection @default "payload-folders" **/
     slug: 'payload-folders',
-    /**
-     * An array of functions to be ran when the folder collection is initialized
-     * This allows plugins to modify the collection configuration
-     */
+    /** An array of functions to be ran when the folder collection is initialized This allows plugins to modify the collection configuration **/
     collectionOverrides: [],
   },
   // This config helps us configure global or default features that the other editors can inherit

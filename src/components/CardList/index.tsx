@@ -27,6 +27,12 @@ export const CardList: React.FC<{
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
   const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
+  
+  // Truncate description to 140 characters and add ellipsis if longer
+  const truncatedDescription = sanitizedDescription && sanitizedDescription.length > 140 
+    ? `${sanitizedDescription.substring(0, 140)}...` 
+    : sanitizedDescription
+  
   const href = `/${locale}/${relationTo}/${slug}`
 
   return (
@@ -79,7 +85,7 @@ export const CardList: React.FC<{
             </h3>
           </div>
         )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
+        {description && <div className="mt-2">{description && <p>{truncatedDescription}</p>}</div>}
       </div>
     </article>
   )
