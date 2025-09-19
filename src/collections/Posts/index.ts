@@ -29,6 +29,7 @@ import { slugField } from '@/fields/slug'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
+  folders: true,
   access: {
     create: authenticated,
     delete: authenticated,

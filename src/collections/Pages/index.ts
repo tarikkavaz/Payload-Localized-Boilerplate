@@ -22,6 +22,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  folders: true,
   access: {
     create: authenticated,
     delete: authenticated,

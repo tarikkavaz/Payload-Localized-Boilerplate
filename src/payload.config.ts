@@ -86,6 +86,32 @@ export default buildConfig({
       ],
     },
   },
+  // Enable folders functionality
+  folders: {
+    /**
+     * Ability to view hidden fields and collections related to folders
+     *
+     * @default false
+     */
+    debug: false,
+    /**
+     * The Folder field name
+     *
+     * @default "folder"
+     */
+    fieldName: 'folder',
+    /**
+     * Slug for the folder collection
+     *
+     * @default "payload-folders"
+     */
+    slug: 'payload-folders',
+    /**
+     * An array of functions to be ran when the folder collection is initialized
+     * This allows plugins to modify the collection configuration
+     */
+    collectionOverrides: [],
+  },
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
     features: () => {
