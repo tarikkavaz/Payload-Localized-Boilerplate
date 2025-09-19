@@ -4,13 +4,14 @@ import React from 'react'
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
   const { categories, meta: { image: metaImage } = {}, populatedAuthors, publishedAt, title } = post
   const t = useTranslations()
+  const locale = useLocale()
 
   return (
     <div className="relative -mt-[10.4rem] min-h-[80vh] flex items-end">
@@ -73,7 +74,7 @@ export const PostHero: React.FC<{
               <div className="flex flex-col gap-1">
                 <p className="text-sm">{t('date-published')}</p>
 
-                <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
+                <time dateTime={publishedAt}>{formatDateTime(publishedAt, locale)}</time>
               </div>
             )}
           </div>

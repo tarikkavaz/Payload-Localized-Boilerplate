@@ -1,20 +1,20 @@
-export const formatDateTime = (timestamp: string): string => {
+export const formatDateTime = (timestamp: string, locale: string = 'en-US'): string => {
   const now = new Date()
   let date = now
   if (timestamp) date = new Date(timestamp)
-  const months = date.getMonth()
-  const days = date.getDate()
-  // const hours = date.getHours();
-  // const minutes = date.getMinutes();
-  // const seconds = date.getSeconds();
 
-  const MM = months + 1 < 10 ? `0${months + 1}` : months + 1
-  const DD = days < 10 ? `0${days}` : days
-  const YYYY = date.getFullYear()
-  // const AMPM = hours < 12 ? 'AM' : 'PM';
-  // const HH = hours > 12 ? hours - 12 : hours;
-  // const MinMin = (minutes < 10) ? `0${minutes}` : minutes;
-  // const SS = (seconds < 10) ? `0${seconds}` : seconds;
-
-  return `${MM}/${DD}/${YYYY}`
+  // Use Intl.DateTimeFormat for locale-aware formatting
+  // Current format: Turkish: "31.12.2025", English: "Dec 31, 2025"
+  // 
+  // To display full month names like "31 Aralık 2025" for Turkish:
+  // Use: month: 'long', day: 'numeric' instead of current options
+  // Example:
+  // const options = locale.startsWith('tr') 
+  //   ? { year: 'numeric', month: 'long', day: 'numeric' } // Turkish: "31 Aralık 2025"
+  //   : { year: 'numeric', month: 'short', day: 'numeric' } // English: "Dec 31, 2025"
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: locale.startsWith('tr') ? '2-digit' : 'short', // Turkish uses numeric format, English uses short month names
+    day: '2-digit'
+  }).format(date)
 }
