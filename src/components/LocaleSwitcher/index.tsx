@@ -164,7 +164,7 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
 
   return (
     <Select onValueChange={onSelectChange} value={locale}>
-      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 pl-0 md:pl-3 border-none ${className || 'text-primary'}`}>
+      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || 'text-primary'}`}>
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>

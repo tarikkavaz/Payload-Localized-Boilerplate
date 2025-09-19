@@ -34,7 +34,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className }) => {
 
   return (
     <Select onValueChange={onThemeChange} value={value}>
-      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 pl-0 md:pl-3 border-none ${className || ''}`}>
+      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || ''}`}>
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent>
