@@ -6,6 +6,7 @@
   "loading": "Loading, please wait...",
   "posts": "Posts",
   "post": "Post",
+  "related-posts": "Related Posts",
   "showing": "Showing",
   "of": "of",
   "range": "Showing {start}–{end} of {total} {kind, select, post {{total, plural, one {post} other {posts}}} other {{total, plural, one {result} other {results}}}}",

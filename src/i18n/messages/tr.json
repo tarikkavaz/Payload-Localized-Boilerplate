@@ -6,6 +6,7 @@
   "loading": "Yükleniyor, lütfen bekleyin...",
   "posts": "Yazılar",
   "post": "Yazı",
+  "related-posts": "İlgili Yazılar",
   "showing": "Gösteriliyor",
   "of": "of",
   "range": "{start}–{end} / {total} {kind, select, post {yazı} other {Kayıt gösteriliyor}}",

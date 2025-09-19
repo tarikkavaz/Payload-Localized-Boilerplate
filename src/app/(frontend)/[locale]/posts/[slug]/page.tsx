@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
+// import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
+import { RelatedPostsList } from '@/blocks/RelatedPostsList/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -64,7 +65,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         </div>
 
         {post.relatedPosts && post.relatedPosts.length > 0 && (
-          <RelatedPosts
+          <RelatedPostsList
             className="mt-12"
             docs={post.relatedPosts.filter((post) => typeof post === 'object')}
           />
