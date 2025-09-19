@@ -32,16 +32,18 @@ export const CardList: React.FC<{
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer flex mb-4 min-h-36',
+        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer flex flex-col lg:flex-row mb-4 min-h-48 lg:min-h-36',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-64 h-24 flex-shrink-0">
+      <div className="relative w-full h-48 lg:w-64 lg:h-auto lg:min-h-full flex-shrink-0 overflow-hidden">
+        {/* image */}
         {!metaImage && <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm text-gray-500">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="128px" className="w-full h-full object-cover" />}
+        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="128px" className="absolute inset-0 w-full h-full object-cover object-center" />}
       </div>
       <div className="p-4 flex-1">
+        {/* text */}
         {showCategories && hasCategories && (
           <div className="uppercase text-sm mb-2">
             {showCategories && hasCategories && (

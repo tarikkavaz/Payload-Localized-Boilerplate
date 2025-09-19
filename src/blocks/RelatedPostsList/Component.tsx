@@ -20,11 +20,12 @@ export const RelatedPostsList: React.FC<RelatedPostsListProps> = (props) => {
   const locale = useLocale()
 
   return (
-    <div className={clsx('container lg:mx-0 lg:grid border border-spacing-1 border-border rounded-lg px-4 pt-4', className)}>
+    <div className={clsx('container lg:mx-0 lg:grid', className)}>
       {introContent && <RichText content={introContent} enableGutter={false} />}
-      <div className="mb-8"><h4 className="text-2xl font-bold">{t('related-posts')}</h4></div>
+      <hr className="my-8" />
+      <div className="prose dark:prose-invert mb-8"><h3>{t('related-posts')}</h3></div>
 
-      <div className="">
+      <div>
         {docs?.map((doc, index) => {
           if (typeof doc === 'string') return null
 
