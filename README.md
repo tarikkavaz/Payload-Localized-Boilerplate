@@ -1,36 +1,86 @@
-# Payload Localization Example (i18n)
+# Payload Localized Website
 
-This example is built based on an old version of the website template.
+A modern, multilingual website built with Payload CMS and Next.js featuring internationalization (i18n) support. This application demonstrates how to implement localization in a Payload CMS website using the next-intl library.
 
-The objective is to show how to implement localization in a website. There is no guarantee that it will be kept up to date with the website template or the latest Payload enhancements.
+## Features
 
-To facilitate the localization process, this example uses the next-intl library.
+- Multi-language support with next-intl
+- Responsive design with Tailwind CSS
+- Modern UI components with Radix UI
+- Rich text editing with Lexical
+- Built-in search functionality
+- Contact forms with email integration
+- SEO optimization
+- Live preview capabilities
 
-## Setup
+## Prerequisites
 
-1. Run the following command to create a project from the example:
+- Node.js 18.20.2+ or 20.9.0+
+- pnpm (recommended) or npm
 
-- `npx create-payload-app --example localization`
+## Installation & Setup
 
-2. `cp .env.example .env` (copy the .env.example file to .env)
-3. `pnpm install`
-4. `pnpm run dev`
-5. Seed your database in the admin panel (see below)
+1. **Clone and install dependencies:**
+   ```bash
+   pnpm install
+   ```
 
-## Seed
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit the `.env` file with your specific values.
 
-To seed the database with a few pages, posts, and projects you can click the 'seed database' link from the admin panel.
+3. **Start the development server:**
+   ```bash
+   pnpm dev
+   ```
 
-The seed script will also create a demo user for demonstration purposes only:
+4. **Access the application:**
+   - Frontend: http://localhost:3000
+   - Admin Panel: http://localhost:3000/admin
 
-- Demo Author
-  - Email: `demo-author@payloadcms.com`
-  - Password: `password`
+## Database Seeding
 
-> NOTICE: seeding the database is destructive because it drops your current database to populate a fresh one from the seed template. Only run this command if you are starting a new project or can afford to lose your current data.
+To populate your database with sample content:
 
-## Important!
+1. Navigate to the admin panel at http://localhost:3000/admin
+2. Click the "Seed Database" button in the dashboard
+3. This will create sample pages, posts, and a demo user
 
-The seed script only creates translations in English and Turkish, so you will not see the website translated to other languages even if you see them in the dropdown menu.
+**Demo User Credentials:**
+- Email: `demo-author@payloadcms.com`
+- Password: `password`
 
-You can translate documents to other languages from the admin panel.
+> **Warning:** Seeding is destructive and will replace all existing data. Only use on fresh installations or when you can afford to lose current data.
+
+## Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm lint:fix` - Fix ESLint errors
+- `pnpm generate:types` - Generate Payload types
+
+## Localization
+
+This app supports multiple languages through next-intl. The seed script creates content in English and Turkish by default. To add more languages:
+
+1. Add translations in the admin panel
+2. Configure additional locales in the Payload config
+3. Add corresponding message files in `src/i18n/messages/`
+
+## Production Deployment
+
+1. Build the application: `pnpm build`
+2. Set production environment variables
+3. Start the production server: `pnpm start`
+
+## Docker Support
+
+A Docker configuration is included for containerized deployment:
+
+```bash
+docker-compose up
+```
