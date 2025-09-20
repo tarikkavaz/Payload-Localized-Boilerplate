@@ -83,13 +83,10 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
           } else if (validCollections.includes(pageSlug)) {
             // If no translation found and it's a collection route, translate the collection name
             let newPath = pageSlug;
-            // If switching to Turkish
-            if (newLocale === 'tr' && collectionMappings.tr[pageSlug as keyof typeof collectionMappings.tr]) {
-              newPath = collectionMappings.tr[pageSlug as keyof typeof collectionMappings.tr];
-            }
-            // If switching to English
-            else if (newLocale === 'en' && collectionMappings.en[pageSlug as keyof typeof collectionMappings.en]) {
-              newPath = collectionMappings.en[pageSlug as keyof typeof collectionMappings.en];
+            // Check if we have a mapping for this locale and collection
+            if (collectionMappings[newLocale as keyof typeof collectionMappings] && 
+                collectionMappings[newLocale as keyof typeof collectionMappings][pageSlug as keyof typeof collectionMappings[typeof newLocale]]) {
+              newPath = collectionMappings[newLocale as keyof typeof collectionMappings][pageSlug as keyof typeof collectionMappings[typeof newLocale]];
             }
             router.replace(`/${newPath}`, { locale: newLocale });
           } else {
@@ -104,9 +101,8 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
           const collection = pathParts[0];
           const baseCollection = getBaseCollection(collection);
           if (baseCollection === 'posts') {
-            const translatedCollection = newLocale === 'tr' ? 
-              collectionMappings.tr[baseCollection] : baseCollection;
-            const translatedCategories = newLocale === 'tr' ? 'kategoriler' : 'categories';
+            const translatedCollection = collectionMappings[newLocale as keyof typeof collectionMappings]?.[baseCollection as keyof typeof collectionMappings[typeof newLocale]] || baseCollection;
+            const translatedCategories = collectionMappings[newLocale as keyof typeof collectionMappings]?.['categories' as keyof typeof collectionMappings[typeof newLocale]] || 'categories';
             router.replace(`/${translatedCollection}/${translatedCategories}`, { locale: newLocale });
           }
           return;
@@ -119,9 +115,8 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
           const baseCollection = getBaseCollection(collection);
           if (baseCollection === 'posts') {
             const translatedSlug = await getTranslatedSlug(locale, newLocale, 'categories', slug, currentPath);
-            const translatedCollection = newLocale === 'tr' ? 
-              collectionMappings.tr[baseCollection] : baseCollection;
-            const translatedCategory = newLocale === 'tr' ? 'kategori' : 'category';
+            const translatedCollection = collectionMappings[newLocale as keyof typeof collectionMappings]?.[baseCollection as keyof typeof collectionMappings[typeof newLocale]] || baseCollection;
+            const translatedCategory = collectionMappings[newLocale as keyof typeof collectionMappings]?.['category' as keyof typeof collectionMappings[typeof newLocale]] || 'category';
             const pathname = `/${translatedCollection}/${translatedCategory}/${translatedSlug || slug}`;
             router.replace(pathname, { locale: newLocale });
           }
@@ -147,8 +142,7 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
             }
 
             const translatedSlug = await getTranslatedSlug(locale, newLocale, baseCollection, slugToUse, currentPath);
-            const translatedCollection = newLocale === 'tr' ? 
-              collectionMappings.tr[baseCollection] : baseCollection;
+            const translatedCollection = collectionMappings[newLocale as keyof typeof collectionMappings]?.[baseCollection as keyof typeof collectionMappings[typeof newLocale]] || baseCollection;
             const newPath = `/${translatedCollection}/${translatedSlug || slugToUse}`;
             router.replace(newPath, { locale: newLocale });
             return;

@@ -14,6 +14,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { TypedLocale } from 'payload'
+import localization from '@/i18n/localization'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
     overrideAccess: false,
   })
 
-  const locales = ['en', 'tr'] as const
+  const locales = localization.locales.map(locale => locale.code)
   const params = pages.docs
     ?.filter((doc) => {
       return doc.slug !== 'home'
@@ -33,7 +34,7 @@ export async function generateStaticParams() {
       return locales.map((locale) => ({
         locale,
         // Handle both string and localized object cases
-        slug: typeof doc.slug === 'object' ? (doc.slug?.[locale] || doc.slug?.en || '') : doc.slug || ''
+        slug: typeof doc.slug === 'object' ? (doc.slug?.[locale as keyof typeof doc.slug] || (doc.slug as any)?.en || '') : doc.slug || ''
       }))
     })
     .filter(param => param.slug) // Remove any entries with empty slugs

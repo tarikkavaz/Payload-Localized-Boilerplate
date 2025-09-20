@@ -70,7 +70,11 @@ To populate your database with sample content:
 
 ## Localization
 
-This app supports multiple languages through next-intl. The seed script creates content in English and Turkish by default. To add more languages:
+This app supports multiple languages through next-intl. The seed script creates content in English and Turkish by default. 
+
+**📖 For detailed instructions on adding new languages, see [ADDING_LANGUAGES.md](./ADDING_LANGUAGES.md)**
+
+Quick overview to add more languages:
 
 1. Add translations in the admin panel
 2. Configure additional locales in the Payload config
