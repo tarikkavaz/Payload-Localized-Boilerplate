@@ -2,16 +2,18 @@
 
 A modern, multilingual website built with Payload CMS and Next.js featuring internationalization (i18n) support. This application demonstrates how to implement localization in a Payload CMS website using the next-intl library.
 
-## Features
+## Tech Stack & Features
 
-- Multi-language support with next-intl
-- Responsive design with Tailwind CSS
-- Modern UI components with Radix UI
-- Rich text editing with Lexical
-- Built-in search functionality
-- Contact forms with email integration
-- SEO optimization
-- Live preview capabilities
+- **Framework**: Next.js with Payload CMS
+- **Database**: SQLite with Payload's SQLite adapter
+- **Email Service**: Resend for contact forms and notifications
+- **Internationalization**: Multi-language support with next-intl
+- **Styling**: Tailwind CSS with responsive design
+- **UI Components**: Modern components built with Radix UI
+- **Editor**: Rich text editing with Lexical
+- **Search**: Built-in search functionality
+- **SEO**: SEO optimization with meta management
+- **Preview**: Live preview capabilities
 
 ## Prerequisites
 
@@ -29,7 +31,10 @@ A modern, multilingual website built with Payload CMS and Next.js featuring inte
    ```bash
    cp .env.example .env
    ```
-   Then edit the `.env` file with your specific values.
+   Then edit the `.env` file with your specific values. Key variables include:
+   - `PAYLOAD_SECRET`: A secure secret key for Payload CMS
+   - `NEXT_PUBLIC_SERVER_URL`: Your application URL (http://localhost:3000 for development)
+   - `RESEND_API_KEY`: Your Resend API key for email functionality (optional)
 
 3. **Start the development server:**
    ```bash
