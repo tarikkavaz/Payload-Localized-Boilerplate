@@ -16,9 +16,10 @@ import { themeLocalStorageKey } from './types'
 
 interface ThemeSelectorProps {
   className?: string
+  rotateChevron?: boolean
 }
 
-export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className }) => {
+export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateChevron }) => {
   const { theme, setTheme } = useTheme()
   const t = useTranslations()
   
@@ -34,7 +35,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className }) => {
 
   return (
     <Select onValueChange={onThemeChange} value={value}>
-      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || ''}`}>
+      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || ''} ${rotateChevron ? '[&_svg]:rotate-180' : ''}`}>
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent>

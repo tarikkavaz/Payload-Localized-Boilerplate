@@ -47,9 +47,10 @@ async function getTranslatedSlug(currentLocale: string, newLocale: string, colle
 
 interface LocaleSwitcherProps {
   className?: string
+  rotateChevron?: boolean
 }
 
-export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
+export function LocaleSwitcher({ className, rotateChevron }: LocaleSwitcherProps) {
   const locale = useLocale()
   const router = useRouter()
   const [, startTransition] = useTransition()
@@ -158,7 +159,7 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
 
   return (
     <Select onValueChange={onSelectChange} value={locale}>
-      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || 'text-primary'}`}>
+      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || 'text-primary'} ${rotateChevron ? '[&_svg]:rotate-180' : ''}`}>
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>

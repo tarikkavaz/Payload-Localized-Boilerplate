@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
+import { navigationItem } from '@/fields/navigationItem'
 import { revalidateHeader } from './hooks/revalidateHeader'
 
 export const Header: GlobalConfig = {
@@ -9,16 +9,7 @@ export const Header: GlobalConfig = {
     read: () => true,
   },
   fields: [
-    {
-      name: 'navItems',
-      type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
-      maxRows: 6,
-    },
+    navigationItem(),
   ],
   hooks: {
     afterChange: [revalidateHeader],

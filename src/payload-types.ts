@@ -1334,7 +1334,18 @@ export interface Header {
   id: number;
   navItems?:
     | {
-        link: {
+        /**
+         * Check this to create a parent item with child items
+         */
+        hasSubmenu?: boolean | null;
+        /**
+         * Display text for the parent navigation item
+         */
+        label?: string | null;
+        /**
+         * Link configuration for this navigation item
+         */
+        link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           reference?: {
@@ -1344,6 +1355,24 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Child items that will appear in the dropdown menu
+         */
+        submenuItems?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1358,7 +1387,18 @@ export interface Footer {
   id: number;
   navItems?:
     | {
-        link: {
+        /**
+         * Check this to create a parent item with child items
+         */
+        hasSubmenu?: boolean | null;
+        /**
+         * Display text for the parent navigation item
+         */
+        label?: string | null;
+        /**
+         * Link configuration for this navigation item
+         */
+        link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           reference?: {
@@ -1368,6 +1408,24 @@ export interface Footer {
           url?: string | null;
           label: string;
         };
+        /**
+         * Child items that will appear in the dropdown menu
+         */
+        submenuItems?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1382,6 +1440,8 @@ export interface HeaderSelect<T extends boolean = true> {
   navItems?:
     | T
     | {
+        hasSubmenu?: T;
+        label?: T;
         link?:
           | T
           | {
@@ -1390,6 +1450,20 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        submenuItems?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };
@@ -1405,6 +1479,8 @@ export interface FooterSelect<T extends boolean = true> {
   navItems?:
     | T
     | {
+        hasSubmenu?: T;
+        label?: T;
         link?:
           | T
           | {
@@ -1413,6 +1489,20 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        submenuItems?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };
