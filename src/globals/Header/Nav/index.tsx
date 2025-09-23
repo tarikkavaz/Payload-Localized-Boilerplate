@@ -54,15 +54,15 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
         // Use Select for desktop, custom dropdown for mobile
         if (isMobile) {
           return (
-            <div key={`mobile-${i}`} className="relative">
-              <button
-                className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 mt-px pt-0.5"
+            <div key={`mobile-${i}`} className="relative pl-2 border-l border-primary/20">
+              <div
+                className="flex items-center gap-2 text-sm font-medium text-primary/60 mt-px pt-0.5"
                 onClick={() => {
                   // For mobile, directly show submenu items as buttons
                 }}
               >
                 {parentLabel}
-              </button>
+              </div>
               <div className="flex flex-col gap-1 mt-2">
                 {item.submenuItems.map((submenuItem, j) => {
                   const { link } = submenuItem
@@ -80,7 +80,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                   return (
                     <button
                       key={j}
-                      className="text-left text-xs text-primary/80 hover:text-primary"
+                      className="text-left text-sm text-primary/80 hover:text-primary hover:underline"
                       onClick={() => {
                         if (link.newTab) {
                           window.open(href, '_blank', 'noopener,noreferrer')
@@ -187,7 +187,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           <div className="fixed inset-0 bg-black/20" />
           <div
             ref={mobileMenuRef}
-            className="fixed top-20 left-0 right-0 bg-background border-b border-border shadow-lg pt"
+            className="fixed top-20 left-0 right-0 bg-background border-b border-border shadow-lg mx-4 rounded-lg"
           >
             <nav className="flex flex-row gap-4 p-4 overflow-x-auto">
               {renderNavItems(true)}
