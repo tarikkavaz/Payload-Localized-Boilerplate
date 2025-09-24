@@ -7,13 +7,14 @@ import type { Footer } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { LocaleSwitcher } from '@/components/LocaleSwitcher'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from '@/components/ui/select'
+import { Logo } from '@/components/Logo/Logo'
 
 export function Footer({ footer }: { footer: Footer }) {
   const navItems = footer?.navItems || []
@@ -22,20 +23,16 @@ export function Footer({ footer }: { footer: Footer }) {
   return (
     <footer className="border-t border-border bg-black dark:bg-card text-white">
       <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <picture>
-            <img
-              alt="Payload Logo"
-              className="max-w-[6rem] invert-0"
-              src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg"
-            />
-          </picture>
+        <Link href="/" className="">
+          <div className="max-w-[9.375rem] min-h-8 invert dark:invert-0">
+            <Logo />
+          </div>
         </Link>
 
         <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
           <LocaleSwitcher className="text-white dark:text-primary" rotateChevron={true} />
           <ThemeSelector rotateChevron={true} />
-          <nav className="flex flex-col md:flex-row gap-4">
+          {/* <nav className="flex flex-col md:flex-row gap-4">
             {navItems.map((item, i) => {
               // Check if item has submenu
               if (item?.hasSubmenu && item?.submenuItems && item.submenuItems.length > 0) {
@@ -90,7 +87,7 @@ export function Footer({ footer }: { footer: Footer }) {
               // Item with no link (shouldn't happen but just in case)
               return null
             })}
-          </nav>
+          </nav> */}
         </div>
       </div>
     </footer>
