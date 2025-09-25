@@ -30,8 +30,8 @@ export function Footer({ footer }: { footer: Footer }) {
         </Link>
 
         <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <LocaleSwitcher className="text-white dark:text-primary" rotateChevron={true} />
-          <ThemeSelector rotateChevron={true} />
+          <LocaleSwitcher variant="footer" rotateChevron={true} />
+          <ThemeSelector variant="footer" rotateChevron={true} />
           {/* <nav className="flex flex-col md:flex-row gap-4">
             {navItems.map((item, i) => {
               // Check if item has submenu

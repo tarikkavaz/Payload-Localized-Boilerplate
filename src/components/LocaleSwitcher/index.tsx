@@ -6,12 +6,11 @@ import { usePathname, useRouter } from '@/i18n/routing'
 import React, { useTransition } from 'react'
 import { TypedLocale } from 'payload'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { ChevronDown, Check } from 'lucide-react'
 import localization from '@/i18n/localization'
 import { collectionMappings, validCollections, getBaseCollection } from '@/i18n/collections'
 
@@ -48,9 +47,10 @@ async function getTranslatedSlug(currentLocale: string, newLocale: string, colle
 interface LocaleSwitcherProps {
   className?: string
   rotateChevron?: boolean
+  variant?: 'default' | 'footer'
 }
 
-export function LocaleSwitcher({ className, rotateChevron }: LocaleSwitcherProps) {
+export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }: LocaleSwitcherProps) {
   const locale = useLocale()
   const router = useRouter()
   const [, startTransition] = useTransition()
@@ -157,20 +157,65 @@ export function LocaleSwitcher({ className, rotateChevron }: LocaleSwitcherProps
     });
   }
 
+  const currentLocaleLabel = localization.locales.find(l => l.code === locale)?.label || locale;
+
+  // Color classes based on variant
+  const getColorClasses = () => {
+    if (variant === 'footer') {
+      return {
+        trigger: 'text-white hover:text-white/80',
+        chevron: 'text-white/60',
+        button: 'text-white hover:bg-white/10',
+        buttonActive: 'bg-white/20 text-white'
+      }
+    }
+    return {
+      trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
+      chevron: 'text-primary/60 dark:text-white/60',
+      button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
+      buttonActive: 'bg-muted dark:bg-white/10 text-primary dark:text-white'
+    }
+  };
+
+  const colors = getColorClasses();
+
   return (
-    <Select onValueChange={onSelectChange} value={locale}>
-      <SelectTrigger className={`w-auto text-sm bg-transparent gap-2 px-0 md:pl-3 border-none ${className || 'text-primary'} ${rotateChevron ? '[&_svg]:rotate-180' : ''}`}>
-        <SelectValue placeholder="Language" />
-      </SelectTrigger>
-      <SelectContent>
+    <Popover>
+      <PopoverTrigger className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 md:pl-3 border-none transition-colors ${colors.trigger} ${className || ''}`}>
+        {currentLocaleLabel}
+        <ChevronDown 
+          aria-hidden="true" 
+          className={`h-5 w-5 flex-none ${colors.chevron} ${rotateChevron ? 'rotate-180' : ''}`} 
+        />
+      </PopoverTrigger>
+      <PopoverContent 
+        className={`w-56 p-2 border shadow-lg ${
+          variant === 'footer' 
+            ? 'bg-gray-800 border-gray-600' 
+            : 'bg-popover dark:bg-popover border-border dark:border-white/10'
+        }`}
+        align="start"
+      >
         {localization.locales
           .sort((a, b) => a.label.localeCompare(b.label))
-          .map((locale) => (
-            <SelectItem value={locale.code} key={locale.code}>
-              {locale.label}
-            </SelectItem>
-          ))}
-      </SelectContent>
-    </Select>
+          .map((localeOption) => {
+            const isActive = localeOption.code === locale;
+            return (
+              <button
+                key={localeOption.code}
+                className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                  isActive 
+                    ? colors.buttonActive
+                    : colors.button
+                }`}
+                onClick={() => onSelectChange(localeOption.code as TypedLocale)}
+              >
+                <span>{localeOption.label}</span>
+                {isActive && <Check className="h-4 w-4" />}
+              </button>
+            );
+          })}
+      </PopoverContent>
+    </Popover>
   )
 }
