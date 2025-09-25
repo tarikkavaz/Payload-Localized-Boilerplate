@@ -39,7 +39,7 @@ async function getTranslatedSlug(currentLocale: string, newLocale: string, colle
       return translationData?.slug;
     }
   } catch (err) {
-    console.error('Error fetching translation:', err);
+    // Silently handle translation fetch errors
   }
   return null;
 }
@@ -132,12 +132,6 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
             const slugToUse = params?.slug as string || currentSlug;
             
             if (!slugToUse || slugToUse === '[slug]') {
-              console.error('Invalid slug detected:', { 
-                pathParts, 
-                currentSlug, 
-                paramsSlug: params?.slug,
-                slugToUse
-              });
               router.replace('/', { locale: newLocale });
               return;
             }
@@ -150,9 +144,7 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
           }
         }
       } catch (error) {
-        console.error('Locale switch failed:', error);
-        console.error('Current path:', pathname);
-        console.error('Attempted locale:', newLocale);
+        // Silently handle locale switch errors
       }
     });
   }

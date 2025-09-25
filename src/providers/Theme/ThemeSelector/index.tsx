@@ -54,9 +54,9 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
     if (variant === 'footer') {
       return {
         trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
-      chevron: 'text-primary/60 dark:text-white/60',
-      button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
-      buttonActive: 'dark:bg-white/10 text-primary dark:text-white'
+        chevron: 'text-primary/60 dark:text-white/60',
+        button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
+        buttonActive: 'dark:bg-white/10 text-primary dark:text-white'
       }
     }
     return {

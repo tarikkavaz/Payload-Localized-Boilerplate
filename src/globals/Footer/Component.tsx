@@ -116,8 +116,8 @@ export function Footer({ footer }: { footer: Footer }) {
               {t('footer-description')}
             </p>
             <div className="flex items-center gap-4">
-              <LocaleSwitcher />
-              <ThemeSelector />
+              <LocaleSwitcher variant="footer" />
+              <ThemeSelector variant="footer" />
             </div>
           </div>
           
