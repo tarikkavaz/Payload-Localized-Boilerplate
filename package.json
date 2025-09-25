@@ -4,17 +4,30 @@
   "description": "An example of how to use Payload's localization features",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "predev": "pnpm install --frozen-lockfile",
+    "prebuild": "pnpm install --frozen-lockfile",
+    "prestart": "pnpm install --frozen-lockfile",
+
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "dev:turbo": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
+
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
+    "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation eslint . --fix",
+    "typecheck": "cross-env NODE_OPTIONS=--no-deprecation tsc --noEmit",
+
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
-    "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+
+    "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
+    "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm -f pnpm-lock.yaml && pnpm --ignore-workspace install",
+
+    "install:check": "pnpm install --check-files --frozen-lockfile",
+    "clean": "rimraf node_modules .next || true"
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",
