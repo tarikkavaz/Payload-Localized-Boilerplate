@@ -1,4 +1,4 @@
-# Payload Localized Website
+# Payload Localized Boilerplate
 
 A modern, multilingual website built with Payload CMS and Next.js featuring internationalization (i18n) support. This application demonstrates how to implement localization in a Payload CMS website using the next-intl library.
 

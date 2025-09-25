@@ -1,4 +1,4 @@
-# Adding New Languages to Payload Localized Website
+# Adding New Languages to Payload Localized Boilerplate
 
 This guide explains how to add new languages to the Payload CMS localized website. The project uses `next-intl` for internationalization and supports both frontend translations and Payload CMS admin localization.
 
