@@ -23,6 +23,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
   const { theme, setTheme } = useTheme()
   const t = useTranslations()
   const [mounted, setMounted] = useState(false)
+  const [open, setOpen] = useState(false)
   
   useEffect(() => {
     setMounted(true)
@@ -34,6 +35,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
     } else {
       setTheme(themeToSet)
     }
+    setOpen(false)
   }
 
   const value = theme || 'auto'
@@ -51,17 +53,17 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
   const getColorClasses = () => {
     if (variant === 'footer') {
       return {
-        trigger: 'text-white hover:text-white/80',
-        chevron: 'text-white/60',
-        button: 'text-white hover:bg-white/10',
-        buttonActive: 'bg-white/20 text-white'
+        trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
+      chevron: 'text-primary/60 dark:text-white/60',
+      button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
+      buttonActive: 'dark:bg-white/10 text-primary dark:text-white'
       }
     }
     return {
-      trigger: 'text-primary hover:text-primary/80',
+      trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
       chevron: 'text-primary/60 dark:text-white/60',
       button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
-      buttonActive: 'bg-muted dark:bg-white/10 text-primary dark:text-white'
+      buttonActive: 'dark:bg-white/10 text-primary dark:text-white'
     }
   };
 
@@ -80,7 +82,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
   }
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 md:pl-3 border-none transition-colors ${colors.trigger} ${className || ''}`}>
         {getThemeLabel(value)}
         <ChevronDown 
@@ -91,7 +93,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
       <PopoverContent 
         className={`w-56 p-2 border shadow-lg ${
           variant === 'footer' 
-            ? 'bg-gray-800 border-gray-600' 
+            ? 'bg-popover border-border' 
             : 'bg-popover dark:bg-popover border-border dark:border-white/10'
         }`}
         align="start"
@@ -105,7 +107,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
           return (
             <button
               key={themeOption.key}
-              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors text-primary ${
                 isActive 
                   ? colors.buttonActive
                   : colors.button

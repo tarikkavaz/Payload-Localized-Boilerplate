@@ -163,10 +163,10 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
   const getColorClasses = () => {
     if (variant === 'footer') {
       return {
-        trigger: 'text-white hover:text-white/80',
-        chevron: 'text-white/60',
-        button: 'text-white hover:bg-white/10',
-        buttonActive: 'bg-white/20 text-white'
+        trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
+        chevron: 'text-primary/60 dark:text-white/60',
+        button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
+        buttonActive: 'bg-muted dark:bg-white/10 text-primary dark:text-white'
       }
     }
     return {
@@ -181,7 +181,7 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
 
   return (
     <Popover>
-      <PopoverTrigger className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 md:pl-3 border-none transition-colors ${colors.trigger} ${className || ''}`}>
+      <PopoverTrigger className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 border-none transition-colors ${colors.trigger} ${className || ''}`}>
         {currentLocaleLabel}
         <ChevronDown 
           aria-hidden="true" 
@@ -191,7 +191,7 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
       <PopoverContent 
         className={`w-56 p-2 border shadow-lg ${
           variant === 'footer' 
-            ? 'bg-gray-800 border-gray-600' 
+            ? 'bg-popover border-border' 
             : 'bg-popover dark:bg-popover border-border dark:border-white/10'
         }`}
         align="start"
