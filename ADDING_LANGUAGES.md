@@ -184,15 +184,23 @@ const generatePathnames = () => {
 }
 ```
 
-### Step 5: Install Required Dependencies
+### Step 5: Verify Database Dependencies (If Needed)
 
-**Important**: Before adding new languages, ensure you have the required database dependencies installed:
+**Note**: This step is only needed if you encounter dependency errors. Most setups already include these dependencies.
+
+If you encounter a "Cannot find module 'libsql'" error when starting your server, install the required database dependencies:
 
 ```bash
 pnpm add libsql @libsql/client
 ```
 
-These packages are required by the `@payloadcms/db-sqlite` adapter. If you encounter a "Cannot find module 'libsql'" error, run the above command and restart your development server.
+These packages are required by the `@payloadcms/db-sqlite` adapter. After installation, restart your development server.
+
+**To check if you already have these dependencies**, look in your `package.json` for:
+- `"@libsql/client"`
+- `"libsql"`
+
+If both are present, you can skip this step.
 
 ### Step 6: Add RTL Support (If Needed)
 
@@ -350,7 +358,7 @@ Here are all the files you need to modify when adding a new language:
    - Restart development server after config changes
    - Check browser console for errors
    - Verify locale code matches in all files
-   - Ensure required dependencies are installed: `pnpm add libsql @libsql/client`
+   - If you see "Cannot find module 'libsql'" errors, install dependencies: `pnpm add libsql @libsql/client`
 
 2. **Translations not loading:**
    - Check JSON syntax in message files
@@ -386,38 +394,3 @@ Here are all the files you need to modify when adding a new language:
 - Check the next-intl documentation: https://next-intl-docs.vercel.app/
 - Payload CMS localization docs: https://payloadcms.com/docs/configuration/localization
 - Review existing implementations in `tr` (Turkish) for reference
-
-## Example: Adding Spanish (es)
-
-Here's a complete example of adding Spanish:
-
-1. **Update `src/i18n/localization.ts`:**
-```typescript
-{
-  code: 'es',
-  label: 'Español',
-},
-```
-
-2. **Create `src/i18n/messages/es.json`:**
-```json
-{
-  "date-published": "Fecha de publicación",
-  "author": "Autor",
-  "posts": "Artículos",
-  // ... rest of translations
-}
-```
-
-3. **Update `src/i18n/collections.ts` (optional):**
-```typescript
-es: {
-  'posts': 'articulos',
-  'category': 'categoria',
-  'categories': 'categorias'
-},
-```
-
-4. **Restart server and test:** `pnpm dev`
-
-That's it! Your Spanish localization should now be working.
