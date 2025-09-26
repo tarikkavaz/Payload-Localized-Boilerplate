@@ -36,11 +36,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
     >
       <nav 
         aria-label="Global" 
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8"
       >
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <Logo />
+            <Logo className="min-h-20" />
           </Link>
         </div>
         

@@ -108,8 +108,8 @@ export function Footer({ footer }: { footer: Footer }) {
           {/* Logo and Description Section */}
           <div className="space-y-8">
             <Link href="/" className="block">
-              <div className="h-9">
-                <Logo />
+              <div className="">
+                <Logo className="max-h-20" />
               </div>
             </Link>
             <p className="text-balance text-sm leading-6 text-muted-foreground">
