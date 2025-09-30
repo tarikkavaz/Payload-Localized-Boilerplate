@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { NextRequest } from 'next/server'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { CollectionSlug, TypedLocale } from 'payload'
@@ -8,17 +9,12 @@ import { CollectionSlug, TypedLocale } from 'payload'
 const payloadToken = 'payload-token'
 
 export async function GET(
-  req: Request & {
-    cookies: {
-      get: (name: string) => {
-        value: string
-      }
-    }
-  },
+  request: NextRequest,
+  context: { params: Promise<{}> }
 ): Promise<Response> {
   const payload = await getPayload({ config: configPromise })
-  const token = req.cookies.get(payloadToken)?.value
-  const { searchParams } = new URL(req.url)
+  const token = request.cookies.get(payloadToken)?.value
+  const { searchParams } = new URL(request.url)
   const path = searchParams.get('path')
   const collection = searchParams.get('collection') as CollectionSlug
   const slug = searchParams.get('slug')
@@ -50,10 +46,12 @@ export async function GET(
 
     let user
 
-    try {
-      user = jwt.verify(token, payload.secret)
-    } catch (error) {
-      payload.logger.error('Error verifying token for live preview:', error)
+    if (token) {
+      try {
+        user = jwt.verify(token, payload.secret)
+      } catch (error) {
+        payload.logger.error('Error verifying token for live preview:', error)
+      }
     }
 
     const draft = await draftMode()
