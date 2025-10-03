@@ -72,7 +72,7 @@ To populate your database with sample content:
 
 This app supports multiple languages through next-intl. The seed script creates content in English and Turkish by default. 
 
-**For detailed instructions on adding new languages, see [ADDING_LANGUAGES.md](./ADDING_LANGUAGES.md)**
+**For detailed instructions on adding new languages, see [ADDING_LANGUAGES.md](./docs/ADDING_LANGUAGES.md)**
 
 Quick overview to add more languages:
 
