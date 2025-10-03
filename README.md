@@ -2,6 +2,18 @@
 
 A modern, multilingual website built with Payload CMS and Next.js featuring internationalization (i18n) support. This application demonstrates how to implement localization in a Payload CMS website using the next-intl library.
 
+## Table of Contents
+
+- [Tech Stack & Features](#tech-stack--features)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+- [Database Seeding](#database-seeding)
+- [Available Scripts](#available-scripts)
+- [Localization](#localization)
+- [Production Deployment](#production-deployment)
+- [Docker Support](#docker-support)
+- [Documentation](#documentation)
+
 ## Tech Stack & Features
 
 - **Framework**: Next.js with Payload CMS
@@ -93,3 +105,13 @@ A Docker configuration is included for containerized deployment:
 ```bash
 docker-compose up
 ```
+## Documentation
+
+- [Payload CMS Documentation](https://payloadcms.com/docs/getting-started/what-is-payload)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Radix UI Documentation](https://www.radix-ui.com/docs/primitives/overview/introduction)
+- [Lexical Documentation](https://lexical.dev/docs)
+- [Resend Documentation](https://resend.com/docs)
+- [Next Intl Documentation](https://next-intl.dev/docs)
+- [Adding Languages Documentation](./docs/ADDING_LANGUAGES.md)
