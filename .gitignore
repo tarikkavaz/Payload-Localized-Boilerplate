@@ -20,3 +20,6 @@ tsconfig.tsbuildinfo
 
 # Database Backups
 db_backups/
+
+# Tools
+/_tools
