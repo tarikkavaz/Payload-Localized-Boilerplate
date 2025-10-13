@@ -22,5 +22,15 @@
   "dark": "Koyu",
   "menu": "Menü",
   "footer-description": "Güçlü içerik yönetimi ile modern web deneyimleri oluşturuyor.",
-  "all-rights-reserved": "Tüm hakları saklıdır."
+  "all-rights-reserved": "Tüm hakları saklıdır.",
+  "pricing": {
+    "monthly": "Aylık",
+    "annual": "Yıllık",
+    "month": "ay",
+    "year": "yıl",
+    "featured": "Önerilen",
+    "save": "Aylık ödemeye göre kâr",
+    "per-month": "/ay",
+    "per-year": "/yıl"
+  }
 }

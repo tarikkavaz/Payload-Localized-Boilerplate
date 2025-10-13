@@ -70,6 +70,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     media: Media;
+    documents: Document;
     categories: Category;
     users: User;
     redirects: Redirect;
@@ -90,6 +91,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -184,7 +186,239 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | {
+        boxes: {
+          title: string;
+          description?: string | null;
+          media: {
+            mediaItem: number | Media;
+            id?: string | null;
+          }[];
+          id?: string | null;
+        }[];
+        /**
+         * Duration, in seconds, between media rotations
+         */
+        animationSpeed?: number | null;
+        /**
+         * Number of boxes per row
+         */
+        columnAmount?: ('2' | '3' | '4') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'boxGallery';
+      }
+    | {
+        introContent?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        documents: {
+          doc: number | Document;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'documents';
+      }
+    | {
+        /**
+         * Add one or more images to the gallery
+         */
+        images: {
+          media: number | Media;
+          caption?: string | null;
+          id?: string | null;
+        }[];
+        /**
+         * Select the layout variant for the gallery
+         */
+        variant?: ('Grid' | 'Masonry' | 'Slider' | 'Ticker') | null;
+        /**
+         * Enable Modal for big images
+         */
+        modal?: boolean | null;
+        /**
+         * Select the number of images per row/view
+         */
+        size?: ('2 Images' | '3 Images' | '4 Images') | null;
+        /**
+         * Enable autoplay
+         */
+        autoplay?: boolean | null;
+        /**
+         * Animation speed
+         */
+        speed?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'imageGallery';
+      }
+    | {
+        /**
+         * Select the currency symbol to display
+         */
+        currency?: ('₺' | '$' | '€' | '£' | '¥') | null;
+        options?:
+          | {
+              title: string;
+              media: number | Media;
+              monthlyPrice: number;
+              annualPrice?: number | null;
+              content?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              features?:
+                | {
+                    text: string;
+                    isAvailable?: boolean | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?: {
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null;
+                      url?: string | null;
+                      label: string;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              isFeatured?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pricing';
+      }
+    | TabbedContentBlock
+    | {
+        /**
+         * Choose how the table should fill the available space
+         */
+        width?: ('full' | 'auto') | null;
+        /**
+         * The caption will be displayed below the table
+         */
+        caption?: string | null;
+        headers?:
+          | {
+              content: string;
+              alignment?: ('left' | 'center' | 'right') | null;
+              id?: string | null;
+            }[]
+          | null;
+        rows?:
+          | {
+              /**
+               * Don't add more Cells than the number of headers
+               */
+              cells?:
+                | {
+                    content: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'table';
+      }
+    | {
+        /**
+         * Add one or more testimonials to the gallery
+         */
+        testimonials: {
+          avatar: number | Media;
+          name: string;
+          job?: string | null;
+          company?: string | null;
+          message: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[];
+        /**
+         * Select the layout variant for the testimonials
+         */
+        variant?: ('Grid' | 'Masonry' | 'Slider' | 'Ticker') | null;
+        /**
+         * Enable Modal for testimonials
+         */
+        modal?: boolean | null;
+        /**
+         * Select the number of testimonials per row/view
+         */
+        size?: ('2 Images' | '3 Images' | '4 Images') | null;
+        /**
+         * Enable autoplay
+         */
+        autoplay?: boolean | null;
+        /**
+         * Animation speed in seconds
+         */
+        speed?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'testimonial';
+      }
+    | TwoColumnBlock
+    | YoutubeBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -698,6 +932,146 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  alt: string;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlock".
+ */
+export interface TabbedContentBlock {
+  orientation: 'horizontal' | 'vertical';
+  tabs?:
+    | {
+        title: string;
+        /**
+         * A short description that appears below the title (most visible in vertical orientation)
+         */
+        description?: string | null;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabbedContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock".
+ */
+export interface TwoColumnBlock {
+  /**
+   * Vertical alignment of the columns
+   */
+  alignment?: ('top' | 'middle' | 'bottom' | 'justify') | null;
+  /**
+   * Select which borders to display (you can select multiple)
+   */
+  borders?: ('top' | 'bottom' | 'between')[] | null;
+  columnOne: {
+    /**
+     * Select the type of content for this column
+     */
+    columnType: 'richText' | 'mediaBlock';
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    media?: (number | null) | Media;
+  };
+  columnTwo: {
+    /**
+     * Select the type of content for this column
+     */
+    columnType: 'richText' | 'mediaBlock';
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    media?: (number | null) | Media;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'twoColumn';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YoutubeBlock".
+ */
+export interface YoutubeBlock {
+  videourl: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'youtube';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -788,6 +1162,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'documents';
+        value: number | Document;
       } | null)
     | ({
         relationTo: 'categories';
@@ -895,6 +1273,148 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        boxGallery?:
+          | T
+          | {
+              boxes?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    media?:
+                      | T
+                      | {
+                          mediaItem?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              animationSpeed?: T;
+              columnAmount?: T;
+              id?: T;
+              blockName?: T;
+            };
+        documents?:
+          | T
+          | {
+              introContent?: T;
+              documents?:
+                | T
+                | {
+                    doc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageGallery?:
+          | T
+          | {
+              images?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              modal?: T;
+              size?: T;
+              autoplay?: T;
+              speed?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pricing?:
+          | T
+          | {
+              currency?: T;
+              options?:
+                | T
+                | {
+                    title?: T;
+                    media?: T;
+                    monthlyPrice?: T;
+                    annualPrice?: T;
+                    content?: T;
+                    features?:
+                      | T
+                      | {
+                          text?: T;
+                          isAvailable?: T;
+                          id?: T;
+                        };
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                                appearance?: T;
+                              };
+                          id?: T;
+                        };
+                    isFeatured?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        tabbedContent?: T | TabbedContentBlockSelect<T>;
+        table?:
+          | T
+          | {
+              width?: T;
+              caption?: T;
+              headers?:
+                | T
+                | {
+                    content?: T;
+                    alignment?: T;
+                    id?: T;
+                  };
+              rows?:
+                | T
+                | {
+                    cells?:
+                      | T
+                      | {
+                          content?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        testimonial?:
+          | T
+          | {
+              testimonials?:
+                | T
+                | {
+                    avatar?: T;
+                    name?: T;
+                    job?: T;
+                    company?: T;
+                    message?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              modal?: T;
+              size?: T;
+              autoplay?: T;
+              speed?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoColumn?: T | TwoColumnBlockSelect<T>;
+        youtube?: T | YoutubeBlockSelect<T>;
       };
   meta?:
     | T
@@ -998,6 +1518,56 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlock_select".
+ */
+export interface TabbedContentBlockSelect<T extends boolean = true> {
+  orientation?: T;
+  tabs?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        content?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock_select".
+ */
+export interface TwoColumnBlockSelect<T extends boolean = true> {
+  alignment?: T;
+  borders?: T;
+  columnOne?:
+    | T
+    | {
+        columnType?: T;
+        richText?: T;
+        media?: T;
+      };
+  columnTwo?:
+    | T
+    | {
+        columnType?: T;
+        richText?: T;
+        media?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YoutubeBlock_select".
+ */
+export interface YoutubeBlockSelect<T extends boolean = true> {
+  videourl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1035,6 +1605,25 @@ export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
   folder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

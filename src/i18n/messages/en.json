@@ -22,5 +22,15 @@
   "dark": "Dark",
   "menu": "Menu",
   "footer-description": "Building modern web experiences with powerful content management.",
-  "all-rights-reserved": "All rights reserved."
+  "all-rights-reserved": "All rights reserved.",
+  "pricing": {
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "month": "month",
+    "year": "year",
+    "featured": "Featured",
+    "save": "Pay yearly and save",
+    "per-month": "/month",
+    "per-year": "/year"
+  }
 }

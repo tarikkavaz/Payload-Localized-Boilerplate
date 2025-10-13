@@ -28,6 +28,13 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      // Add YouTube thumbnail support
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        port: '',
+        pathname: '/vi/**',
+      },
     ],
   },
   reactStrictMode: true,

@@ -8,6 +8,15 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { BoxGalleryBlock } from '@/blocks/BoxGallery/Component'
+import { DocumentsBlock } from '@/blocks/Documents/Component'
+import { ImageGalleryBlock } from '@/blocks/ImageGallery/Component'
+import { PricingBlock } from '@/blocks/Pricing/Component'
+import { TabbedContentBlock } from '@/blocks/TabbedContent/Component'
+import { TableBlock } from '@/blocks/Table/Component'
+import { TestimonialBlock } from '@/blocks/Testimonial/Component'
+import { TwoColumnBlock } from '@/blocks/TwoColumn/Component'
+import { YoutubeBlock } from '@/blocks/Youtube/Component'
 import { TypedLocale } from 'payload'
 
 const blockComponents = {
@@ -16,6 +25,15 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  boxGallery: BoxGalleryBlock,
+  documents: DocumentsBlock,
+  imageGallery: ImageGalleryBlock,
+  pricing: PricingBlock,
+  tabbedContent: TabbedContentBlock,
+  table: TableBlock,
+  testimonial: TestimonialBlock,
+  twoColumn: TwoColumnBlock,
+  youtube: YoutubeBlock,
 }
 
 export const RenderBlocks: React.FC<{

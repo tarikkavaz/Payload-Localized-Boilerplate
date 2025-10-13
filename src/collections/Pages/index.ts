@@ -7,6 +7,15 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { BoxGallery } from '../../blocks/BoxGallery/config'
+import { Documents } from '../../blocks/Documents/config'
+import { ImageGallery } from '../../blocks/ImageGallery/config'
+import { PricingBlock } from '../../blocks/Pricing/config'
+import { TabbedContent } from '../../blocks/TabbedContent/config'
+import { TableBlock } from '../../blocks/Table/config'
+import { Testimonial } from '../../blocks/Testimonial/config'
+import { TwoColumn } from '../../blocks/TwoColumn/config'
+import { Youtube } from '../../blocks/Youtube/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -74,7 +83,7 @@ export const Pages: CollectionConfig = {
               name: 'layout',
               type: 'blocks',
               localized: true,
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, BoxGallery, Documents, ImageGallery, PricingBlock, TabbedContent, TableBlock, Testimonial, TwoColumn, Youtube],
               required: true,
             },
           ],
