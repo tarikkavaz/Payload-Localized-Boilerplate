@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { SearchIcon, Menu, X, ChevronDown } from 'lucide-react'
+import { FiSearch, FiMenu, FiX, FiChevronDown } from 'react-icons/fi'
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/routing'
 
@@ -96,7 +96,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           <Popover key={`desktop-${i}`}>
             <PopoverTrigger className="flex items-center gap-x-1 text-md font-semibold text-foreground hover:text-foreground hover:bg-muted rounded-lg px-3 py-2 transition-colors">
               {parentLabel}
-              <ChevronDown aria-hidden="true" className="h-5 w-5 flex-none text-muted-foreground" />
+              <FiChevronDown aria-hidden="true" className="h-5 w-5 flex-none text-muted-foreground" />
             </PopoverTrigger>
             <PopoverContent 
               className="w-56 p-2 bg-popover dark:bg-popover border border-border dark:border-white/10 shadow-lg"
@@ -161,7 +161,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
               className="-mx-3 group flex w-full items-center justify-between rounded-lg py-2 px-3 text-md font-semibold text-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               {parentLabel}
-              <ChevronDown 
+              <FiChevronDown 
                 aria-hidden="true" 
                 className={`h-5 w-5 flex-none text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} 
               />
@@ -235,7 +235,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           }`}
         >
           <span className="sr-only">{t('search')}</span>
-          <SearchIcon className="w-5 h-5" />
+          <FiSearch className="w-5 h-5" />
         </Link>
       </nav>
 
@@ -250,7 +250,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           }`}
         >
           <span className="sr-only">{t('search')}</span>
-          <SearchIcon className="w-5 h-5" />
+          <FiSearch className="w-5 h-5" />
         </Link>
         <button
           type="button"
@@ -258,7 +258,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           className="-m-2.5 inline-flex items-center justify-center hover:rounded-lg p-2.5 text-foreground hover:text-foreground hover:bg-muted transition-colors mr-2"
         >
           <span className="sr-only">Open main menu</span>
-          <Menu aria-hidden="true" className="h-6 w-6" />
+          <FiMenu aria-hidden="true" className="h-6 w-6" />
         </button>
       </div>
 

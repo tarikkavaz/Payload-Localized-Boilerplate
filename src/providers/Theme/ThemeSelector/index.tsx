@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { ChevronDown, Check } from 'lucide-react'
+import { FiChevronDown, FiCheck } from 'react-icons/fi'
 import React, { useState, useEffect } from 'react'
 
 import type { Theme } from './types'
@@ -73,7 +73,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
     return (
       <div className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 md:pl-3 border-none ${colors.trigger} ${className || ''}`}>
         {t('auto')}
-        <ChevronDown 
+        <FiChevronDown 
           aria-hidden="true" 
           className={`h-5 w-5 flex-none ${colors.chevron} ${rotateChevron ? 'rotate-180' : ''}`} 
         />
@@ -85,7 +85,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 md:pl-3 border-none transition-colors ${colors.trigger} ${className || ''}`}>
         {getThemeLabel(value)}
-        <ChevronDown 
+        <FiChevronDown 
           aria-hidden="true" 
           className={`h-5 w-5 flex-none ${colors.chevron} ${rotateChevron ? 'rotate-180' : ''}`} 
         />
@@ -115,7 +115,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
               onClick={() => onThemeChange(themeOption.key as Theme | 'auto')}
             >
               <span>{themeOption.label}</span>
-              {isActive && <Check className="h-4 w-4" />}
+              {isActive && <FiCheck className="h-4 w-4" />}
             </button>
           );
         })}

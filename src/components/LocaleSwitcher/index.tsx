@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { ChevronDown, Check } from 'lucide-react'
+import { FiChevronDown, FiCheck } from 'react-icons/fi'
 import localization from '@/i18n/localization'
 import { collectionMappings, validCollections, getBaseCollection } from '@/i18n/collections'
 
@@ -84,7 +84,7 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
           } else if (validCollections.includes(pageSlug)) {
             // If no translation found and it's a collection route, translate the collection name
             let newPath = pageSlug;
-            // Check if we have a mapping for this locale and collection
+            // FiCheck if we have a mapping for this locale and collection
             if (collectionMappings[newLocale as keyof typeof collectionMappings] && 
                 collectionMappings[newLocale as keyof typeof collectionMappings][pageSlug as keyof typeof collectionMappings[typeof newLocale]]) {
               newPath = collectionMappings[newLocale as keyof typeof collectionMappings][pageSlug as keyof typeof collectionMappings[typeof newLocale]];
@@ -175,7 +175,7 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
     <Popover>
       <PopoverTrigger className={`flex items-center gap-x-1 text-sm font-semibold bg-transparent px-0 border-none transition-colors ${colors.trigger} ${className || ''}`}>
         {currentLocaleLabel}
-        <ChevronDown 
+        <FiChevronDown 
           aria-hidden="true" 
           className={`h-5 w-5 flex-none ${colors.chevron} ${rotateChevron ? 'rotate-180' : ''}`} 
         />
@@ -203,7 +203,7 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
                 onClick={() => onSelectChange(localeOption.code as TypedLocale)}
               >
                 <span>{localeOption.label}</span>
-                {isActive && <Check className="h-4 w-4" />}
+                {isActive && <FiCheck className="h-4 w-4" />}
               </button>
             );
           })}

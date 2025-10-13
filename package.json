@@ -54,7 +54,6 @@
     "graphql": "^16.8.2",
     "jsonwebtoken": "9.0.2",
     "libsql": "^0.5.22",
-    "lucide-react": "^0.378.0",
     "next": "^15.2.3",
     "next-intl": "^3.23.2",
     "payload": "3.55.1",

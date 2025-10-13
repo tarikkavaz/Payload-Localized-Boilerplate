@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { Check, X } from 'lucide-react'
+import { FiCheck, FiX } from 'react-icons/fi'
 import { Switch } from '@/components/ui/switch'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
@@ -50,7 +50,7 @@ export const PricingBlock: React.FC<Props> = ({ options, currency = '$', locale 
           <span className="text-foreground">{t('monthly')}</span>
           <Switch
             checked={isAnnual}
-            onCheckedChange={setIsAnnual}
+            onFiCheckedChange={setIsAnnual}
             className="data-[state=checked]:bg-foreground data-[state=unchecked]:bg-foreground"
           />
           <span className="text-foreground">{t('annual')}</span>
@@ -106,9 +106,9 @@ export const PricingBlock: React.FC<Props> = ({ options, currency = '$', locale 
                 {option.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center gap-2">
                     {feature.isAvailable ? (
-                      <Check className="w-5 h-5 text-green-500" />
+                      <FiCheck className="w-5 h-5 text-green-500" />
                     ) : (
-                      <X className="w-5 h-5 text-red-500" />
+                      <FiX className="w-5 h-5 text-red-500" />
                     )}
                     <span className="text-sm text-muted-foreground">{feature.text}</span>
                   </li>
