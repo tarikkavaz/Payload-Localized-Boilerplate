@@ -237,7 +237,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex lg:gap-x-12 items-center">
         {renderDesktopNavItems()}
-        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2 transition-colors">
+        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2.5 transition-colors">
           <span className="sr-only">{t('search')}</span>
           <SearchIcon className="w-5 h-5" />
         </Link>
@@ -245,14 +245,14 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
 
       {/* Mobile Navigation Button */}
       <div className="flex lg:hidden items-center gap-3">
-        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2 transition-colors">
+        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2.5 transition-colors">
           <span className="sr-only">{t('search')}</span>
           <SearchIcon className="w-5 h-5" />
         </Link>
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(true)}
-          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:text-foreground hover:bg-muted transition-colors mr-2"
+          className="-m-2.5 inline-flex items-center justify-center hover:rounded-lg p-2.5 text-foreground hover:text-foreground hover:bg-muted transition-colors mr-2"
         >
           <span className="sr-only">Open main menu</span>
           <Menu aria-hidden="true" className="h-6 w-6" />
