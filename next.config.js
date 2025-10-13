@@ -1,5 +1,10 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 import createNextIntlPlugin from 'next-intl/plugin'
+import { setMaxListeners } from 'events'
+
+// Fix MaxListenersExceededWarning for process event listeners
+// This is common in Next.js + Payload CMS with multiple plugins
+setMaxListeners(50)
 
 const withNextIntl = createNextIntlPlugin()
 
