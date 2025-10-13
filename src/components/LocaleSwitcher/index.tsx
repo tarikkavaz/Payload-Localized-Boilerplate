@@ -158,14 +158,14 @@ export function LocaleSwitcher({ className, rotateChevron, variant = 'default' }
         trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
         chevron: 'text-primary/60 dark:text-white/60',
         button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
-        buttonActive: 'bg-muted dark:bg-white/10 text-primary dark:text-white'
+        buttonActive: 'bg-foreground text-background'
       }
     }
     return {
       trigger: 'text-primary dark:text-white hover:text-primary/80 dark:hover:text-white/80',
       chevron: 'text-primary/60 dark:text-white/60',
       button: 'text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5',
-      buttonActive: 'bg-muted dark:bg-white/10 text-primary dark:text-white'
+      buttonActive: 'bg-foreground text-background'
     }
   };
 

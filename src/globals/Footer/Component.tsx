@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import React from 'react'
-import { useRouter } from '@/i18n/routing'
+import { useRouter, usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import type { Footer } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
@@ -13,6 +13,7 @@ import { Logo } from '@/components/Logo/Logo'
 export function Footer({ footer }: { footer: Footer }) {
   const navItems = footer?.navItems || []
   const router = useRouter()
+  const pathname = usePathname()
   const t = useTranslations()
 
   const generateHref = (link: any) => {
@@ -30,6 +31,32 @@ export function Footer({ footer }: { footer: Footer }) {
     } else {
       router.push(href)
     }
+  }
+
+  const isActiveLink = (href: string) => {
+    if (!href) return { isExact: false, isPrefix: false }
+    
+    // Exact match
+    const isExact = pathname === href
+    
+    // Prefix match (but not for home page to avoid everything being active)
+    const isPrefix = href !== '/' && pathname.startsWith(href + '/')
+    
+    return { isExact, isPrefix }
+  }
+
+  const getActiveLinkClasses = (href: string, baseClasses: string) => {
+    const { isExact, isPrefix } = isActiveLink(href)
+    
+    if (isExact) {
+      // Strong active state for exact matches (more subtle for footer)
+      return `${baseClasses} bg-muted text-foreground font-medium`
+    } else if (isPrefix) {
+      // Very subtle active state for prefix matches in footer
+      return `${baseClasses} bg-muted/50 text-foreground font-medium`
+    }
+    
+    return baseClasses
   }
 
   // Helper function to determine grid classes based on number of items
@@ -62,10 +89,13 @@ export function Footer({ footer }: { footer: Footer }) {
                 const href = generateHref(link)
                 if (!href) return null
 
+                const baseClasses = "text-sm text-left transition-colors rounded px-2 py-1"
+                const inactiveClasses = "text-muted-foreground hover:text-foreground"
+
                 return (
                   <li key={j}>
                     <button
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left"
+                      className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
                       onClick={() => handleNavigation(href, link.newTab || false)}
                     >
                       {link.label}
@@ -83,11 +113,14 @@ export function Footer({ footer }: { footer: Footer }) {
         const href = generateHref(item.link)
         if (!href) return null
 
+        const baseClasses = "transition-colors text-left rounded px-2 py-1"
+        const inactiveClasses = "hover:text-muted-foreground"
+
         return (
           <div key={i} className="space-y-4">
             <h3 className="text-sm font-semibold text-foreground">
               <button
-                className="hover:text-muted-foreground transition-colors text-left"
+                className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
                 onClick={() => handleNavigation(href, item.link?.newTab || false)}
               >
                 {item.link?.label}

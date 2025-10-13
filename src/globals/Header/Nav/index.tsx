@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { SearchIcon, Menu, X, ChevronDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useRouter } from '@/i18n/routing'
+import { useRouter, usePathname } from '@/i18n/routing'
 
 import type { Header as HeaderType } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
@@ -26,6 +26,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || []
   const t = useTranslations()
   const router = useRouter()
+  const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openDisclosures, setOpenDisclosures] = useState<Set<number>>(new Set())
 
@@ -58,6 +59,32 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
     return link.url
   }
 
+  const isActiveLink = (href: string) => {
+    if (!href) return { isExact: false, isPrefix: false }
+    
+    // Exact match
+    const isExact = pathname === href
+    
+    // Prefix match (but not for home page to avoid everything being active)
+    const isPrefix = href !== '/' && pathname.startsWith(href + '/')
+    
+    return { isExact, isPrefix }
+  }
+
+  const getActiveLinkClasses = (href: string, baseClasses: string) => {
+    const { isExact, isPrefix } = isActiveLink(href)
+    
+    if (isExact) {
+      // Strong active state for exact matches
+      return `${baseClasses} bg-foreground text-background`
+    } else if (isPrefix) {
+      // Subtle active state for prefix matches
+      return `${baseClasses} bg-muted/70 text-foreground font-medium`
+    }
+    
+    return baseClasses
+  }
+
   const renderDesktopNavItems = () => {
     return navItems.map((item, i) => {
       // Check if item has submenu
@@ -66,9 +93,9 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
         
         return (
           <Popover key={`desktop-${i}`}>
-            <PopoverTrigger className="flex items-center gap-x-1 text-md font-semibold text-primary dark:text-white hover:text-primary/80 transition-colors">
+            <PopoverTrigger className="flex items-center gap-x-1 text-md font-semibold text-foreground hover:text-foreground hover:bg-muted rounded-lg px-3 py-2 transition-colors">
               {parentLabel}
-              <ChevronDown aria-hidden="true" className="h-5 w-5 flex-none text-primary/60 dark:text-white/60" />
+              <ChevronDown aria-hidden="true" className="h-5 w-5 flex-none text-muted-foreground" />
             </PopoverTrigger>
             <PopoverContent 
               className="w-56 p-2 bg-popover dark:bg-popover border border-border dark:border-white/10 shadow-lg"
@@ -81,10 +108,13 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                 const href = generateHref(link)
                 if (!href) return null
 
+                const baseClasses = "block w-full text-left rounded-lg px-3 py-2 text-md font-semibold transition-colors"
+                const inactiveClasses = "text-foreground hover:bg-muted hover:text-foreground"
+
                 return (
                   <button
                     key={j}
-                    className="block w-full text-left rounded-lg px-3 py-2 text-md font-semibold text-primary dark:text-white hover:bg-muted dark:hover:bg-white/5 transition-colors"
+                    className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
                     onClick={() => handleNavigation(href, link.newTab || false)}
                   >
                     {link.label}
@@ -98,12 +128,16 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
 
       // Regular menu item without submenu
       if (item?.link) {
+        const href = generateHref(item.link)
+        const baseClasses = "text-md font-semibold transition-colors rounded-lg px-3 py-2"
+        const inactiveClasses = "text-foreground hover:text-foreground hover:bg-muted"
+        
         return (
           <div key={`desktop-link-${i}`}>
             <CMSLink 
               {...item.link} 
               appearance="link" 
-              className="text-md font-semibold text-primary dark:text-white hover:text-primary/80 transition-colors"
+              className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
             />
           </div>
         )
@@ -125,12 +159,12 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
             {/* Disclosure Button */}
             <button
               onClick={() => toggleDisclosure(i)}
-              className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-sm font-semibold text-primary hover:bg-muted dark:text-white dark:hover:bg-white/5 transition-colors"
+              className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-sm font-semibold text-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               {parentLabel}
               <ChevronDown 
                 aria-hidden="true" 
-                className={`h-5 w-5 flex-none transition-transform ${isOpen ? 'rotate-180' : ''}`} 
+                className={`h-5 w-5 flex-none text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} 
               />
             </button>
             
@@ -144,10 +178,13 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                   const href = generateHref(link)
                   if (!href) return null
 
+                  const baseClasses = "block w-full text-left rounded-lg py-2 pl-6 pr-3 text-sm font-semibold transition-colors"
+                  const inactiveClasses = "text-foreground hover:bg-muted hover:text-foreground"
+
                   return (
                     <button
                       key={j}
-                      className="block w-full text-left rounded-lg py-2 pl-6 pr-3 text-sm font-semibold text-primary hover:bg-muted dark:text-white dark:hover:bg-white/5 transition-colors"
+                      className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
                       onClick={() => {
                         handleNavigation(href, link.newTab || false)
                         setIsMobileMenuOpen(false)
@@ -165,11 +202,15 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
 
       // Regular menu item without submenu
       if (item?.link) {
+        const href = generateHref(item.link)
+        const baseClasses = "-mx-3 block rounded-lg px-3 py-2 text-md font-semibold transition-colors"
+        const inactiveClasses = "text-foreground hover:bg-muted hover:text-foreground"
+        
         return (
           <div 
             key={`mobile-link-${i}`} 
             onClick={() => setIsMobileMenuOpen(false)}
-            className="-mx-3 block rounded-lg px-3 py-2 text-md text-primary hover:bg-muted dark:text-white dark:hover:bg-white/5 transition-colors"
+            className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
           >
             <CMSLink {...item.link} appearance="link" className="font-semibold" />
           </div>
@@ -185,7 +226,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex lg:gap-x-12 items-center">
         {renderDesktopNavItems()}
-        <Link href="/search" className="text-primary hover:text-primary/80 transition-colors">
+        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2 transition-colors">
           <span className="sr-only">{t('search')}</span>
           <SearchIcon className="w-5 h-5" />
         </Link>
@@ -193,14 +234,14 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
 
       {/* Mobile Navigation Button */}
       <div className="flex lg:hidden items-center gap-3">
-        <Link href="/search" className="text-primary hover:text-primary/80 transition-colors">
+        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2 transition-colors">
           <span className="sr-only">{t('search')}</span>
           <SearchIcon className="w-5 h-5" />
         </Link>
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(true)}
-          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary dark:text-white"
+          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:text-foreground hover:bg-muted transition-colors"
         >
           <span className="sr-only">Open main menu</span>
           <Menu aria-hidden="true" className="h-6 w-6" />
@@ -210,7 +251,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       {/* Mobile Menu Dialog */}
       <Dialog open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
         <DialogContent className="fixed inset-y-0 right-0 left-auto top-auto z-50 w-full h-full overflow-y-auto bg-background dark:bg-background p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-white/10 translate-x-0 translate-y-0 max-w-none block data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-right-full data-[state=closed]:!slide-out-to-top-0 data-[state=open]:!slide-in-from-top-0 duration-300">
-          <DialogTitle className="text-lg font-semibold text-primary dark:text-white mb-6">
+          <DialogTitle className="text-lg font-semibold text-foreground mb-6">
             {t('menu')}
           </DialogTitle>
           <DialogDescription className="sr-only">
