@@ -237,7 +237,14 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex lg:gap-x-12 items-center">
         {renderDesktopNavItems()}
-        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2.5 transition-colors">
+        <Link 
+          href="/search" 
+          className={`transition-colors rounded-lg p-2.5 ${
+            pathname === '/search' 
+              ? 'bg-foreground text-background' 
+              : 'text-foreground hover:text-foreground hover:bg-muted'
+          }`}
+        >
           <span className="sr-only">{t('search')}</span>
           <SearchIcon className="w-5 h-5" />
         </Link>
@@ -245,7 +252,14 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
 
       {/* Mobile Navigation Button */}
       <div className="flex lg:hidden items-center gap-3">
-        <Link href="/search" className="text-foreground hover:text-foreground hover:bg-muted rounded-lg p-2.5 transition-colors">
+        <Link 
+          href="/search" 
+          className={`transition-colors rounded-lg p-2.5 ${
+            pathname === '/search' 
+              ? 'bg-foreground text-background' 
+              : 'text-foreground hover:text-foreground hover:bg-muted'
+          }`}
+        >
           <span className="sr-only">{t('search')}</span>
           <SearchIcon className="w-5 h-5" />
         </Link>
