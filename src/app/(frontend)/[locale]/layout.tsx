@@ -50,8 +50,9 @@ export default async function RootLayout({ children, params }: Args) {
     >
       <head>
         <InitTheme />
-        <link href="/assets/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/assets/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/assets/favicon.svg" rel="icon" type="image/svg+xml" sizes="32x32" />
+        <link href="/assets/favicon.png" rel="icon" type="image/png" sizes="32x32" />
+        <link href="/assets/favicon.ico" rel="icon" type="image/x-icon" sizes="32x32" />
       </head>
       <body className="min-h-screen flex flex-col">
         <Providers>
