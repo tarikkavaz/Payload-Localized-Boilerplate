@@ -163,11 +163,11 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
         const isOpen = openDisclosures.has(i)
         
         return (
-          <div key={`mobile-${i}`} className="-mx-3">
+          <div key={`mobile-${i}`}>
             {/* Disclosure Button */}
             <button
               onClick={() => toggleDisclosure(i)}
-              className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-md font-semibold text-foreground hover:bg-muted hover:text-foreground transition-colors"
+              className="-mx-3 group flex w-full items-center justify-between rounded-lg py-2 px-3 text-md font-semibold text-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               {parentLabel}
               <ChevronDown 
