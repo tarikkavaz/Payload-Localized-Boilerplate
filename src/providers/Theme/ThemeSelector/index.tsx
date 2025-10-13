@@ -107,7 +107,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ className, rotateC
           return (
             <button
               key={themeOption.key}
-              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors text-primary ${
+              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                 isActive 
                   ? colors.buttonActive
                   : colors.button

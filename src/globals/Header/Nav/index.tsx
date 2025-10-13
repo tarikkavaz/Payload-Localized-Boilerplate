@@ -71,18 +71,26 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
     return { isExact, isPrefix }
   }
 
-  const getActiveLinkClasses = (href: string, baseClasses: string) => {
+  const getActiveLinkClasses = (href: string, baseClasses: string, inactiveClasses: string, isMobile: boolean = false) => {
     const { isExact, isPrefix } = isActiveLink(href)
     
     if (isExact) {
-      // Strong active state for exact matches
-      return `${baseClasses} bg-foreground text-background`
+      // Strong active state for exact matches - remove only text color classes, keep alignment
+      const cleanBaseClasses = baseClasses.replace(/text-(primary|foreground|muted|white|black|gray-\d+|slate-\d+|zinc-\d+|neutral-\d+|stone-\d+|red-\d+|orange-\d+|amber-\d+|yellow-\d+|lime-\d+|green-\d+|emerald-\d+|teal-\d+|cyan-\d+|sky-\d+|blue-\d+|indigo-\d+|violet-\d+|purple-\d+|fuchsia-\d+|pink-\d+|rose-\d+)(\S*)?/g, '').replace(/\s+/g, ' ').trim()
+      return `${cleanBaseClasses} bg-foreground text-background`
     } else if (isPrefix) {
       // Subtle active state for prefix matches
-      return `${baseClasses} bg-muted/70 text-foreground font-medium`
+      if (isMobile) {
+        // In mobile, use same styling as desktop for consistency
+        const cleanBaseClasses = baseClasses.replace(/text-(primary|foreground|muted|white|black|gray-\d+|slate-\d+|zinc-\d+|neutral-\d+|stone-\d+|red-\d+|orange-\d+|amber-\d+|yellow-\d+|lime-\d+|green-\d+|emerald-\d+|teal-\d+|cyan-\d+|sky-\d+|blue-\d+|indigo-\d+|violet-\d+|purple-\d+|fuchsia-\d+|pink-\d+|rose-\d+)(\S*)?/g, '').replace(/\s+/g, ' ').trim()
+        return `${cleanBaseClasses} bg-muted text-foreground font-medium`
+      } else {
+        const cleanBaseClasses = baseClasses.replace(/text-(primary|foreground|muted|white|black|gray-\d+|slate-\d+|zinc-\d+|neutral-\d+|stone-\d+|red-\d+|orange-\d+|amber-\d+|yellow-\d+|lime-\d+|green-\d+|emerald-\d+|teal-\d+|cyan-\d+|sky-\d+|blue-\d+|indigo-\d+|violet-\d+|purple-\d+|fuchsia-\d+|pink-\d+|rose-\d+)(\S*)?/g, '').replace(/\s+/g, ' ').trim()
+        return `${cleanBaseClasses} bg-muted text-foreground font-medium`
+      }
     }
     
-    return baseClasses
+    return `${baseClasses} ${inactiveClasses}`
   }
 
   const renderDesktopNavItems = () => {
@@ -114,7 +122,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                 return (
                   <button
                     key={j}
-                    className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
+                    className={getActiveLinkClasses(href, baseClasses, inactiveClasses)}
                     onClick={() => handleNavigation(href, link.newTab || false)}
                   >
                     {link.label}
@@ -137,7 +145,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
             <CMSLink 
               {...item.link} 
               appearance="link" 
-              className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
+              className={getActiveLinkClasses(href, baseClasses, inactiveClasses)}
             />
           </div>
         )
@@ -159,7 +167,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
             {/* Disclosure Button */}
             <button
               onClick={() => toggleDisclosure(i)}
-              className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-sm font-semibold text-foreground hover:bg-muted hover:text-foreground transition-colors"
+              className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-md font-semibold text-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               {parentLabel}
               <ChevronDown 
@@ -178,13 +186,13 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                   const href = generateHref(link)
                   if (!href) return null
 
-                  const baseClasses = "block w-full text-left rounded-lg py-2 pl-6 pr-3 text-sm font-semibold transition-colors"
+                  const baseClasses = "block w-full text-left rounded-lg py-2 pl-6 pr-3 text-sm font-semibold transition-colors cursor-pointer"
                   const inactiveClasses = "text-foreground hover:bg-muted hover:text-foreground"
 
                   return (
                     <button
                       key={j}
-                      className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
+                      className={getActiveLinkClasses(href, baseClasses, inactiveClasses, true)}
                       onClick={() => {
                         handleNavigation(href, link.newTab || false)
                         setIsMobileMenuOpen(false)
@@ -203,17 +211,20 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       // Regular menu item without submenu
       if (item?.link) {
         const href = generateHref(item.link)
-        const baseClasses = "-mx-3 block rounded-lg px-3 py-2 text-md font-semibold transition-colors"
+        const baseClasses = "-mx-3 block rounded-lg px-3 py-2 text-md font-semibold transition-colors cursor-pointer w-full text-left"
         const inactiveClasses = "text-foreground hover:bg-muted hover:text-foreground"
         
         return (
-          <div 
+          <button 
             key={`mobile-link-${i}`} 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className={getActiveLinkClasses(href, `${baseClasses} ${inactiveClasses}`)}
+            className={getActiveLinkClasses(href, baseClasses, inactiveClasses, true)}
+            onClick={() => {
+              handleNavigation(href, item.link?.newTab || false)
+              setIsMobileMenuOpen(false)
+            }}
           >
-            <CMSLink {...item.link} appearance="link" className="font-semibold" />
-          </div>
+            {item.link?.label}
+          </button>
         )
       }
 
@@ -241,7 +252,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(true)}
-          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:text-foreground hover:bg-muted transition-colors"
+          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:text-foreground hover:bg-muted transition-colors mr-2"
         >
           <span className="sr-only">Open main menu</span>
           <Menu aria-hidden="true" className="h-6 w-6" />
